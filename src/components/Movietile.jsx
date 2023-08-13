@@ -14,31 +14,23 @@ const Movietile = ({ movieItem, removeButton }) => {
       <div>
         <p className="text-2xl font-bold">{movieItem.title}</p>
         <p>{movieItem.summary}</p>
-        {removeButton ? (
-          <div className="text-white text-lg space-x-4 mt-5">
-            <button className="bg-black  p-2 rounded">Star</button>
-            <button
-              onClick={() => removeFromWatchlist(movieItem.title)}
-              className="bg-black p-2 rounded"
-              // disabled={watchLaterExist(movieItem.title)}
-            >
-              Remove Movie
-            </button>
-          </div>
-        ) : (
-          <div className="text-white text-lg space-x-4 mt-5">
-            <button className="bg-black  p-2 rounded">Star</button>
-            <button
-              onClick={() => addToWishList(movieItem.title)}
-              className="bg-black p-2 rounded"
-              // disabled={watchLaterExist(movieItem.title)}
-            >
-              {watchLaterExist(movieItem.title)
-                ? "Added Watchlist"
-                : "Add to Watchlist"}
-            </button>
-          </div>
-        )}
+
+        <div className="text-white text-lg space-x-4 mt-5">
+          <button className="bg-black  p-2 rounded">Star</button>
+          <button
+            onClick={() =>
+              watchLaterExist(movieItem.title)
+                ? removeFromWatchlist(movieItem.title)
+                : addToWishList(movieItem.title)
+            }
+            className="bg-black p-2 rounded"
+            // disabled={watchLaterExist(movieItem.title)}
+          >
+            {watchLaterExist(movieItem.title)
+              ? "Remove watchlater"
+              : "Add Watchlater"}
+          </button>
+        </div>
       </div>
     </div>
   );
