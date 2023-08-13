@@ -14,10 +14,13 @@ const MovieListing = () => {
   if (Search != "") {
     displayData = displayData.filter(
       (val) =>
-        val.title.toLowerCase().includes(Search) ||
-        val.director.toLowerCase().includes(Search) ||
-        val.cast.includes(Search)
+        val.title.toLowerCase().includes(Search.toLowerCase()) ||
+        val.director.toLowerCase().includes(Search.toLowerCase()) ||
+        val.cast.some((item) =>
+          item.toLowerCase().includes(Search.toLowerCase())
+        )
     );
+
     //  ||
     // displayData.filter((val) =>
     //   val.director.toLowerCase().includes(Search)
