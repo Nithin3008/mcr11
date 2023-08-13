@@ -3,7 +3,8 @@ import { MovieContext } from "../context/MainReducer";
 import { useNavigate } from "react-router";
 
 const Filters = () => {
-  const { MovieData, Genre, Rating, Year, dispatch } = useContext(MovieContext);
+  const { MovieData, GenreData, Rating, Year, dispatch } =
+    useContext(MovieContext);
   const genre = MovieData.map((val) => val.genre);
   const genre1 = [...new Set(genre.flat())];
   const years = MovieData.map((val) => val.year);
@@ -17,23 +18,31 @@ const Filters = () => {
           dispatch({ type: "setGenre", payload: e.target.value })
         }
       >
-        {/* <option >{Genre}</option> */}
-        <option selected>All Genre</option>
+        <option selected>{GenreData}</option>
+        <option>All Genre</option>
         {genre1.map((val) => (
           <option>{val}</option>
         ))}
       </select>
       <select
-        onChange={(e) => dispatch({ type: "setYear", payload: e.target.value })}
+        onChange={(e) =>
+          dispatch({ type: "setYear", payload: Number(e.target.value) })
+        }
       >
-        <option selected>{Year == 0 ? "All" : Year}</option>
-        <option>All</option>
+        <option value="0" selected>
+          Year{" "}
+        </option>
         {releaseYears.map((val) => (
           <option>{val}</option>
         ))}
       </select>
-      <select>
-        <option>All</option>
+      <select
+        onChange={(e) =>
+          dispatch({ type: "setRating", payload: Number(e.target.value) })
+        }
+      >
+        <option selected>{Rating}</option>
+
         <option>1</option>
         <option>2</option>
         <option>3</option>

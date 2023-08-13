@@ -1,5 +1,4 @@
 import { createContext, useReducer } from "react";
-import { act } from "react-dom/test-utils";
 
 const movies = [
   {
@@ -167,10 +166,18 @@ export function MovieProvider({ children }) {
     watchLater: localStorage.getItem("watchlater")
       ? JSON.parse(localStorage.getItem("watchlater"))
       : [],
-    search: "",
-    year: 0,
-    rating: 0,
-    genre: "All Genre",
+    search: localStorage.getItem("search")
+      ? JSON.parse(localStorage.getItem("search"))
+      : "",
+    year: localStorage.getItem("year")
+      ? JSON.parse(localStorage.getItem("year"))
+      : 0,
+    rating: localStorage.getItem("rating")
+      ? JSON.parse(localStorage.getItem("rating"))
+      : 0,
+    genre: localStorage.getItem("genre")
+      ? JSON.parse(localStorage.getItem("genre"))
+      : "All Genre",
   };
 
   const [state, dispatch] = useReducer(ReducerFunc, movieData);
@@ -179,12 +186,19 @@ export function MovieProvider({ children }) {
       localStorage.setItem("watchlater", JSON.stringify(action.payload));
       return { ...state, watchLater: [...action.payload] };
     } else if (action.type == "setGenre") {
+      localStorage.setItem("genre", JSON.stringify(action.payload));
       console.log(action.payload);
       return { ...state, genre: action.payload };
     } else if (action.type === "setSearch") {
+      localStorage.setItem("search", JSON.stringify(action.payload));
       return { ...state, search: action.payload };
     } else if (action.type === "setYear") {
+      console.log(action.payload);
+      localStorage.setItem("year", JSON.stringify(action.payload));
       return { ...state, year: action.payload };
+    } else if (action.type === "setRating") {
+      localStorage.setItem("rating", JSON.stringify(action.payload));
+      return { ...state, rating: action.payload };
     } else if (action.type === "addMovie") {
       const x = [...state.MainData, action.payload];
       localStorage.setItem("MainData", JSON.stringify(x));

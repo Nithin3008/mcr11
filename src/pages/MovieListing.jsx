@@ -4,10 +4,9 @@ import Filters from "../components/Filters";
 import Movietile from "../components/Movietile";
 
 const MovieListing = () => {
-  const { MovieData, GenreData, Search, Year } = useContext(MovieContext);
+  const { MovieData, GenreData, Search, Year, Rating } =
+    useContext(MovieContext);
   let displayData = [...MovieData];
-  console.log(displayData);
-  console.log(Search);
   if (GenreData != "All Genre") {
     displayData = displayData.filter((val) => val.genre.includes(GenreData));
   }
@@ -20,15 +19,14 @@ const MovieListing = () => {
           item.toLowerCase().includes(Search.toLowerCase())
         )
     );
-
-    //  ||
-    // displayData.filter((val) =>
-    //   val.director.toLowerCase().includes(Search)
-    // ) ||
-    // displayData.filter((val) => val.cast.includes(Search));
   }
-  if (Year !== 0) {
+  console.log(Search, Year, Rating, GenreData);
+  if (Year != 0) {
     displayData = displayData.filter((val) => val.year == Year);
+  }
+  console.log(displayData);
+  if (Rating != 0 || Rating !== null) {
+    displayData = displayData.filter((val) => val.rating >= Rating);
   }
   return (
     <>
